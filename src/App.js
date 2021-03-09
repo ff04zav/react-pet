@@ -1,62 +1,50 @@
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Management from "./Management"
 import logo from './logo.svg';
-import React, {Component} from 'react';
-import './App.css';
-import Form from './Form';
-import Table from './Table';
 
-
-class App extends Component {
-    constructor(props) {
-	  super(props);
-	  this.state = {
-		  date: new Date(),
-		  list: ["Apple", "Banana", "Mango"]
-	  }
-	}
-  
-	componentDidMount() {
-		this.timerID = setInterval(
-			() => {this.tick()}, 1000
-		);
-	}
-  
-	componentWillUnmount() {
-		clearInterval(this.timerID);
-	}
-	
-	tick() {
-		this.setState({date: new Date()});
-	}
-
-	onChange = (value)=> {
-		this.setState((state) => ({
-			list: [value, ...state.list]
-		}))
-	}
-
-	listRemoveHandler = (index) => {
-		const list = [...this.state.list];
-		list.splice(index, 1);
-		this.setState({list: list});
-	}
-    
-	render(){
-	  return (
-		<div className="App">
-		  <header className="App-header">
+export default function App() {
+	return (
+	  <Router>
+		<header className="App-header">
 			<img src={logo} className="App-logo" alt="logo" />
-		  </header>
-		  <Form onChange={this.onChange}/>
-		  <Table removeHandler={this.listRemoveHandler} list={this.state.list}/>
-		  <div>
-			Date: {this.state.date.toLocaleString()}
-		  </div>
-		  <div>
-			Author: {this.props.name}
-		  </div>
+		</header>
+		<div>
+		  <nav>
+			<ul>
+			  <li>
+				<Link to="/">Home</Link>
+			  </li>
+			  <li>
+				<Link to="/management">Management</Link>
+			  </li>
+			</ul>
+		  </nav>
+  
+		  {/* A <Switch> looks through its children <Route>s and
+			  renders the first one that matches the current URL. */}
+		  <Switch>
+			<Route path="/management">
+			  <Management name="Andrew" />
+			</Route>
+			<Route path="/">
+			  <Home />
+			</Route>
+		  </Switch>
 		</div>
-	  );
-    }
-}
+	  </Router>
+	);
+  }
 
-export default App;
+  function Home() {
+	return (<div className="Home">
+			<h2>React pet application</h2>
+			<p>Click 'Management' menu item to test functionality</p>
+		</div>);
+  }

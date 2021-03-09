@@ -1,6 +1,9 @@
 .App {
   text-align: left;
 }
+.Home {
+  padding-left: 20px;
+}
 
 .App>div, .App>form  {
   margin-left: 40px;
