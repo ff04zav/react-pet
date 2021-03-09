@@ -1,25 +1,62 @@
 import logo from './logo.svg';
+import {Component} from 'react';
 import './App.css';
+import Form from './Form';
+import Table from './Table';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+    constructor(props) {
+	  super(props);
+	  this.state = {
+		  date: new Date(),
+		  list: ["Apple", "Banana", "Mango"]
+	  }
+	}
+  
+	componentDidMount() {
+		this.timerID = setInterval(
+			() => {this.tick()}, 1000
+		);
+	}
+  
+	componentWillUnmount() {
+		clearInterval(this.timerID);
+	}
+	
+	tick() {
+		this.setState({date: new Date()});
+	}
+
+	onChange = (value)=> {
+		this.setState((state) => ({
+			list: [value, ...state.list]
+		}))
+	}
+
+	listRemoveHandler = (index) => {
+		const list = [...this.state.list];
+		list.splice(index, 1);
+		this.setState({list: list});
+	}
+    
+	render(){
+	  return (
+		<div className="App">
+		  <header className="App-header">
+			<img src={logo} className="App-logo" alt="logo" />
+		  </header>
+		  <Form onChange={this.onChange}/>
+		  <Table removeHandler={this.listRemoveHandler} list={this.state.list}/>
+		  <div>
+			Date: {this.state.date.toLocaleString()}
+		  </div>
+		  <div>
+			Author: {this.props.name}
+		  </div>
+		</div>
+	  );
+    }
 }
 
 export default App;

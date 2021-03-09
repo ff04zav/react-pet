@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const HApp = function(props) {
+	return <h1>Hi, {props.name}!</h1>
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+	<App name="Andrew"/>
   </React.StrictMode>,
   document.getElementById('root')
 );
