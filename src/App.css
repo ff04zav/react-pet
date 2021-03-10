@@ -5,11 +5,12 @@
   padding-left: 20px;
 }
 
-.App>div, .App>form  {
+.App > div,
+.App > form {
   margin-left: 40px;
 }
 
-.App>form {
+.App > form {
   margin-bottom: 20px;
   margin-top: 20px;
 }
@@ -27,8 +28,6 @@
   width: 160px;
   display: inline-block;
 }
-
-
 
 .App-logo {
   height: 70px;
