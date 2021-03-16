@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../App.css";
 import Form from "../Form";
 import Table from "../Table";
 
@@ -8,7 +7,7 @@ class Management extends Component {
     super(props);
     this.state = {
       date: new Date(),
-      list: ["Apple", "Banana", "Mango"],
+      list: [],
     };
   }
 

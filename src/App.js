@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Management from "./Management";
+import Management from "./components/Management";
 import logo from "./logo.svg";
+import "./App.scss";
 
 export default function App() {
   return (

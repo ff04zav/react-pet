@@ -18,15 +18,13 @@
 .pseudo-table {
   margin-bottom: 20px;
   margin-top: 20px;
-}
-
-.pseudo-table .row {
-  margin: 10px 0;
-}
-
-.pseudo-table .row .label {
-  width: 160px;
-  display: inline-block;
+  .row {
+    margin: 10px 0;
+    .label {
+      width: 160px;
+      display: inline-block;
+    }
+  }
 }
 
 .App-logo {
