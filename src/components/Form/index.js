@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = { value1: "0", value2: "0", oper: "mult" };
+    this.state = { first: "0", second: "0", operator: "mult" };
   }
 
   onSubmit = (e) => {
@@ -11,17 +11,14 @@ class Form extends Component {
     console.log("");
     let result = 0;
     let state = this.state;
-    let v1 = Number(state.value1);
-    let v2 = Number(state.value2);
-    switch (state.oper) {
+    let v1 = Number(state.first);
+    let v2 = Number(state.second);
+    switch (state.operator) {
       case "add":
         result = v1 + v2;
         break;
       case "sub":
         result = v1 - v2;
-        break;
-      case "mult":
-        result = v1 * v2;
         break;
       case "div":
         result = v1 / v2;
@@ -30,41 +27,35 @@ class Form extends Component {
         result = v1 * v2;
     }
     this.props.onChange(String(result));
-    this.setState({ value1: 0, value2: 0, oper: "mult" });
+    this.setState({ first: "0", second: "0", operator: "mult" });
   };
 
-  onChangeFirst = (e) => {
-    const { value } = e.target;
-    this.setState({ value1: value });
-  };
-
-  onChangeSecond = (e) => {
-    const { value } = e.target;
-    this.setState({ value2: value });
-  };
-
-  onChangeOperator = (e) => {
-    const { value } = e.target;
-    this.setState({ oper: value });
+  onChange = (e) => {
+    const { value, name } = e.target;
+    this.setState({ [name]: value });
   };
 
   render() {
     return (
       <form onSubmit={this.onSubmit}>
         <input
-          onChange={this.onChangeFirst}
-          name="name"
+          onChange={this.onChange}
+          name="first"
           value={this.state.value1}
         />
-        <select value={this.state.oper} onChange={this.onChangeOperator}>
+        <select
+          name="operator"
+          value={this.state.oper}
+          onChange={this.onChange}
+        >
           <option value="add">+</option>
           <option value="sub">-</option>
           <option value="mult">*</option>
           <option value="div">/</option>
         </select>
         <input
-          onChange={this.onChangeSecond}
-          name="name"
+          onChange={this.onChange}
+          name="second"
           value={this.state.value2}
         />
         <button>Store result</button>
