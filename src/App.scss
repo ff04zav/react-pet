@@ -1,18 +1,19 @@
 .App {
   text-align: left;
+
+  > div,
+  > form {
+    margin-left: 40px;
+  }
+
+  > form {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
 }
+
 .Home {
   padding-left: 20px;
-}
-
-.App > div,
-.App > form {
-  margin-left: 40px;
-}
-
-.App > form {
-  margin-bottom: 20px;
-  margin-top: 20px;
 }
 
 .pseudo-table {
@@ -30,10 +31,8 @@
 .App-logo {
   height: 70px;
   pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  @media (prefers-reduced-motion: no-preference) {
     animation: App-logo-spin infinite 20s linear;
   }
 }
@@ -47,10 +46,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
