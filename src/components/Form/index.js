@@ -5,7 +5,6 @@ const Form = (props) => {
     first: "0",
     second: "0",
     operator: "mult",
-    valid: true,
   });
 
   const onSubmit = (e) => {
@@ -32,7 +31,6 @@ const Form = (props) => {
       first: "0",
       second: "0",
       operator: "mult",
-      valid: true,
     });
   };
 
@@ -41,16 +39,14 @@ const Form = (props) => {
     setForm({
       ...form,
       [name]: value,
-      valid: isValid({ [name]: value }),
     });
   };
 
-  const isValid = (diff) => {
-    let state = Object.assign({}, form, diff);
+  const isValid = () => {
     return (
-      Number.isInteger(Number(state.first)) &&
-      Number.isInteger(Number(state.second)) &&
-      (state.operator !== "div" || Number(state.second) !== 0)
+      Number.isInteger(Number(form.first)) &&
+      Number.isInteger(Number(form.second)) &&
+      (form.operator !== "div" || Number(form.second) !== 0)
     );
   };
 
@@ -64,7 +60,7 @@ const Form = (props) => {
         <option value="div">/</option>
       </select>
       <input onChange={onChange} name="second" value={form.second} />
-      <button disabled={!form.valid}>Store result</button>
+      <button disabled={!isValid()}>Store result</button>
     </form>
   );
 };
