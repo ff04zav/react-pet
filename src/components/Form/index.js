@@ -1,16 +1,17 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { first: "0", second: "0", operator: "mult" };
-  }
+const Form = (props) => {
+  const [form, setForm] = useState({
+    first: "0",
+    second: "0",
+    operator: "mult",
+    valid: true,
+  });
 
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    console.log("");
     let result = 0;
-    let state = this.state;
+    let state = form;
     let v1 = Number(state.first);
     let v2 = Number(state.second);
     switch (state.operator) {
@@ -26,42 +27,46 @@ class Form extends Component {
       default:
         result = v1 * v2;
     }
-    this.props.onChange(String(result));
-    this.setState({ first: "0", second: "0", operator: "mult" });
+    props.onChange(String(result));
+    setForm({
+      first: "0",
+      second: "0",
+      operator: "mult",
+      valid: true,
+    });
   };
 
-  onChange = (e) => {
+  const onChange = (e) => {
     const { value, name } = e.target;
-    this.setState({ [name]: value });
+    setForm({
+      ...form,
+      [name]: value,
+      valid: isValid({ [name]: value }),
+    });
   };
 
-  render() {
+  const isValid = (diff) => {
+    let state = Object.assign({}, form, diff);
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          onChange={this.onChange}
-          name="first"
-          value={this.state.value1}
-        />
-        <select
-          name="operator"
-          value={this.state.oper}
-          onChange={this.onChange}
-        >
-          <option value="add">+</option>
-          <option value="sub">-</option>
-          <option value="mult">*</option>
-          <option value="div">/</option>
-        </select>
-        <input
-          onChange={this.onChange}
-          name="second"
-          value={this.state.value2}
-        />
-        <button>Store result</button>
-      </form>
+      Number.isInteger(Number(state.first)) &&
+      Number.isInteger(Number(state.second)) &&
+      (state.operator !== "div" || Number(state.second) !== 0)
     );
-  }
-}
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input onChange={onChange} name="first" value={form.first} />
+      <select name="operator" value={form.operator} onChange={onChange}>
+        <option value="add">+</option>
+        <option value="sub">-</option>
+        <option value="mult">*</option>
+        <option value="div">/</option>
+      </select>
+      <input onChange={onChange} name="second" value={form.second} />
+      <button disabled={!form.valid}>Store result</button>
+    </form>
+  );
+};
 
 export default Form;

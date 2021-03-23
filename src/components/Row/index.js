@@ -1,25 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-class Row extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "" };
-  }
-
-  deleteItem = (e) => {
-    this.props.removeHandler(this.props.index);
+const Row = (props) => {
+  const deleteItem = (e) => {
+    props.removeHandler(props.index);
   };
 
-  render() {
-    return (
-      <div className="row">
-        <div className="label"> {this.props.item} </div>{" "}
-        <button onClick={this.deleteItem}>Delete</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="row">
+      <div className="label"> {props.item} </div>{" "}
+      <button onClick={deleteItem}>Delete</button>
+    </div>
+  );
+};
 
 Row.propTypes = {
   item: PropTypes.string,
