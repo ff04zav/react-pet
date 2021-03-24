@@ -5,7 +5,7 @@ import Row from "../Row";
 
 const Table = (props) => {
   const deleteItem = (e) => {
-    props.removeHandler(props.index);
+    props.removeHandler(e);
   };
 
   return (
