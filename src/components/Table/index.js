@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Row from "../Row";
 
-const Table = ({ list, removeHandler }) => {
+const Table = ({ list, removeHandler, showEditHandler }) => {
   return (
     <div className="pseudo-table">
       {list.map((item, index) => (
@@ -11,6 +11,7 @@ const Table = ({ list, removeHandler }) => {
           key={index}
           index={index}
           removeHandler={removeHandler}
+          showEditHandler={showEditHandler}
           item={item}
         />
       ))}
