@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Row = (props) => {
-  const deleteItem = (e) => {
-    props.removeHandler(props.index);
+const Row = ({ item, index, removeHandler }) => {
+  const deleteItem = () => {
+    removeHandler(index);
   };
 
   return (
     <div className="row">
-      <div className="label"> {props.item} </div>{" "}
+      <div className="label"> {item} </div>{" "}
       <button onClick={deleteItem}>Delete</button>
     </div>
   );

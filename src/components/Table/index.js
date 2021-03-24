@@ -4,14 +4,15 @@ import PropTypes from "prop-types";
 import Row from "../Row";
 
 const Table = ({ list, removeHandler }) => {
-  const deleteItem = (e) => {
-    removeHandler(e);
-  };
-
   return (
     <div className="pseudo-table">
       {list.map((item, index) => (
-        <Row key={index} index={index} removeHandler={deleteItem} item={item} />
+        <Row
+          key={index}
+          index={index}
+          removeHandler={removeHandler}
+          item={item}
+        />
       ))}
     </div>
   );
