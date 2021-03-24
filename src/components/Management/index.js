@@ -3,26 +3,19 @@ import Form from "../Form";
 import Table from "../Table";
 
 const Management = (props) => {
-  const [memo, setMemo] = useState({
-    list: [],
-  });
+  const [list, setMemo] = useState([]);
 
   const onChange = (value) => {
-    setMemo((memo) => ({
-      list: [value, ...memo.list],
-    }));
+    setMemo([value, ...list]);
   };
 
-  const listRemoveHandler = (index) => {
-    const list = [...memo.list];
-    list.splice(index, 1);
-    setMemo({ list });
-  };
+  const listRemoveHandler = (index) =>
+    setMemo(list.filter((elem, i) => i !== index));
 
   return (
     <div className="App">
       <Form onChange={onChange} />
-      <Table removeHandler={listRemoveHandler} list={memo.list} />
+      <Table removeHandler={listRemoveHandler} list={list} />
     </div>
   );
 };
