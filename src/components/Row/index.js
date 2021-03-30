@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Row = ({ item, index, removeHandler, showEditHandler }) => {
   const deleteItem = () => {
@@ -12,9 +15,15 @@ const Row = ({ item, index, removeHandler, showEditHandler }) => {
 
   return (
     <div className="row">
-      <div className="label"> {item} </div>{" "}
-      <button onClick={editItem}>Edit</button>
-      <button onClick={deleteItem}>Delete</button>
+      <div className="label text-truncate">
+        <span>{item}</span>
+      </div>
+      <button className="btn btn-secondary align-top" onClick={editItem}>
+        <FontAwesomeIcon icon={faEdit} />
+      </button>
+      <button className="btn btn-secondary align-top" onClick={deleteItem}>
+        <FontAwesomeIcon icon={faTrash} />
+      </button>
     </div>
   );
 };

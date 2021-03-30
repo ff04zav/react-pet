@@ -7,6 +7,7 @@ const Management = (props) => {
   const [list, setMemo] = useState([]);
   const [show, setShow] = useState(false);
   const [editIndex, setEditIndex] = useState(0);
+  const [oldValue, setOldValue] = useState("");
 
   const onChange = (value) => {
     setMemo([value, ...list]);
@@ -20,6 +21,10 @@ const Management = (props) => {
 
   const showEditHandler = (index) => {
     setEditIndex(index);
+    console.log(index);
+    console.log(list[index]);
+    setOldValue(list[index]);
+    console.log(oldValue);
     setShow(true);
   };
 
@@ -36,7 +41,7 @@ const Management = (props) => {
         list={list}
       />
       <EditPopup
-        oldValue={list[editIndex]}
+        oldValue={oldValue}
         show={show}
         editHandler={editHandler}
         hideEditHandler={hideEditHandler}

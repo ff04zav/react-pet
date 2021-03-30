@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./styles.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const EditPopup = ({ oldValue, show, editHandler, hideEditHandler }) => {
-  const [value] = useState(oldValue);
-
   const onKeyUpValue = (event) => {
     console.log(event);
     if (event.keyCode === 13) {
       editHandler(event.target.value);
       hideEditHandler();
     }
+  };
+
+  const onChange = (e) => {
+    setInnerValue(e.target.value);
   };
 
   const escFunction = useCallback(
@@ -29,12 +33,25 @@ const EditPopup = ({ oldValue, show, editHandler, hideEditHandler }) => {
     };
   }, [escFunction]);
 
+  const [innerValue, setInnerValue] = useState(oldValue);
+  console.log(oldValue);
+  console.log(innerValue);
   if (show) {
     return (
       <div className="popup">
+        <div className="head show" id="myPopupHead">
+          <div onClick={hideEditHandler} className="icon-wrapper">
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
+        </div>
         <div className="popuptext show" id="myPopup">
           <span>New value: </span>
-          <input type="text" value={value} onKeyUp={onKeyUpValue.bind(this)} />
+          <input
+            type="text"
+            defaultValue={oldValue}
+            onChange={onChange}
+            onKeyUp={onKeyUpValue.bind(this)}
+          />
         </div>
       </div>
     );

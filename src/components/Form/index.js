@@ -60,7 +60,9 @@ const Form = (props) => {
         <option value="div">/</option>
       </select>
       <input onChange={onChange} name="second" value={form.second} />
-      <button disabled={!isValid()}>Store result</button>
+      <button className="btn btn-primary align-top" disabled={!isValid()}>
+        Store result
+      </button>
     </form>
   );
 };

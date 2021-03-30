@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Management from "./components/Management";
 import logo from "./logo.svg";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./App.scss";
 
 export default function App() {
@@ -13,12 +16,16 @@ export default function App() {
       </header>
       <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
+          <ul className="nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
             </li>
-            <li>
-              <Link to="/management">Management</Link>
+            <li className="nav-item">
+              <Link className="nav-link" to="/management">
+                Management
+              </Link>
             </li>
           </ul>
         </nav>

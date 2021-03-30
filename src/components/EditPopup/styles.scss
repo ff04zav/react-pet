@@ -1,3 +1,4 @@
+$width: 400px;
 .popup {
   position: absolute;
   width: 100%;
@@ -6,30 +7,41 @@
 
   .popuptext {
     visibility: hidden;
-    width: 460px;
+    width: $width;
     margin-left: auto;
     margin-right: auto;
-    background-color: #555;
+    background-color: rgb(21, 53, 121);
     color: #fff;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 0 0 6px 6px;
     padding: 8px 0;
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    bottom: 125%;
+    top: 40%;
     left: 50%;
-    margin-left: -80px;
+    margin-left: -($width/2);
   }
 
-  .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
+  .head {
+    width: $width;
+    display: flex;
+    background-color: #555;
+    border-radius: 6px 6px 0 0;
+    justify-content: flex-end;
+    position: fixed;
+    z-index: 1;
+    top: calc(40% - 24px);
     left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    margin-left: -($width/2);
+    visibility: hidden;
+
+    .icon-wrapper {
+      display: inline-block;
+      padding-right: 5px;
+      svg {
+        color: white;
+      }
+    }
   }
 
   .show {
