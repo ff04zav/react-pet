@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import ListContext from "../../providers/ListContext";
+import UpButton from "../UpButton";
+import DownButton from "../DownButton";
 
 const Row = ({ item, index, showEditHandler }) => {
   const [list, setMemo] = React.useContext(ListContext);
@@ -26,6 +28,8 @@ const Row = ({ item, index, showEditHandler }) => {
       <button className="btn btn-secondary align-top" onClick={deleteItem}>
         <FontAwesomeIcon icon={faTrash} />
       </button>
+      <UpButton index={index} />
+      <DownButton index={index} />
     </div>
   );
 };
@@ -33,7 +37,7 @@ const Row = ({ item, index, showEditHandler }) => {
 Row.propTypes = {
   item: PropTypes.string,
   index: PropTypes.number,
-  removeHandler: PropTypes.func,
+  showEditHandler: PropTypes.func,
 };
 
 export default Row;
