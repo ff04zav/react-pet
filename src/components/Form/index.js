@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import ListContext from "../../providers/ListContext";
 
-const Form = (props) => {
+const Form = () => {
+  const [list, setMemo] = useContext(ListContext);
   const [form, setForm] = useState({
     first: "0",
     second: "0",
     operator: "mult",
   });
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const calcResult = () => {
     let result = 0;
-    let state = form;
-    let v1 = Number(state.first);
-    let v2 = Number(state.second);
-    switch (state.operator) {
+    let v1 = Number(form.first);
+    let v2 = Number(form.second);
+    switch (form.operator) {
       case "add":
         result = v1 + v2;
         break;
@@ -26,7 +26,13 @@ const Form = (props) => {
       default:
         result = v1 * v2;
     }
-    props.onChange(String(result));
+    return result;
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let value = String(calcResult());
+    setMemo([String(value), ...list]);
     setForm({
       first: "0",
       second: "0",

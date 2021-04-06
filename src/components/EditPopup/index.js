@@ -1,13 +1,21 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import "./styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import ListContext from "../../providers/ListContext";
 
-const EditPopup = ({ oldValue, show, editHandler, hideEditHandler }) => {
+const EditPopup = ({ show, editIndex, hideEditHandler }) => {
+  const [list, setMemo] = useContext(ListContext);
+  const editHandler = (newValue) =>
+    setMemo(list.map((item, j) => (j === editIndex ? newValue : item)));
+
   const onKeyUpValue = (event) => {
-    console.log(event);
     if (event.keyCode === 13) {
-      editHandler(event.target.value);
+      if (isNaN(innerValue)) {
+        alert(innerValue + " is not a valid number");
+        return;
+      }
+      editHandler(innerValue);
       hideEditHandler();
     }
   };
@@ -27,15 +35,12 @@ const EditPopup = ({ oldValue, show, editHandler, hideEditHandler }) => {
 
   useEffect(() => {
     document.addEventListener("keydown", escFunction, false);
-
     return () => {
       document.removeEventListener("keydown", escFunction, false);
     };
   }, [escFunction]);
 
-  const [innerValue, setInnerValue] = useState(oldValue);
-  console.log(oldValue);
-  console.log(innerValue);
+  const [innerValue, setInnerValue] = useState(list[editIndex]);
   if (show) {
     return (
       <div className="popup">
@@ -48,7 +53,7 @@ const EditPopup = ({ oldValue, show, editHandler, hideEditHandler }) => {
           <span>New value: </span>
           <input
             type="text"
-            defaultValue={oldValue}
+            defaultValue={list[editIndex]}
             onChange={onChange}
             onKeyUp={onKeyUpValue.bind(this)}
           />
@@ -56,7 +61,7 @@ const EditPopup = ({ oldValue, show, editHandler, hideEditHandler }) => {
       </div>
     );
   } else {
-    return <></>;
+    return null;
   }
 };
 

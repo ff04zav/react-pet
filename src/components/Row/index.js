@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import ListContext from "../../providers/ListContext";
 
-const Row = ({ item, index, removeHandler, showEditHandler }) => {
+const Row = ({ item, index, showEditHandler }) => {
+  const [list, setMemo] = React.useContext(ListContext);
   const deleteItem = () => {
-    removeHandler(index);
+    setMemo(list.filter((elem, i) => i !== index));
   };
 
   const editItem = () => {

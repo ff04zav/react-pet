@@ -2,29 +2,15 @@ import React, { useState } from "react";
 import Form from "../Form";
 import Table from "../Table";
 import EditPopup from "../EditPopup";
+import ListContext from "../../providers/ListContext";
 
 const Management = (props) => {
   const [list, setMemo] = useState([]);
   const [show, setShow] = useState(false);
   const [editIndex, setEditIndex] = useState(0);
-  const [oldValue, setOldValue] = useState("");
-
-  const onChange = (value) => {
-    setMemo([value, ...list]);
-  };
-
-  const listRemoveHandler = (index) =>
-    setMemo(list.filter((elem, i) => i !== index));
-
-  const editHandler = (newValue) =>
-    setMemo(list.map((item, j) => (j === editIndex ? newValue : item)));
 
   const showEditHandler = (index) => {
     setEditIndex(index);
-    console.log(index);
-    console.log(list[index]);
-    setOldValue(list[index]);
-    console.log(oldValue);
     setShow(true);
   };
 
@@ -33,20 +19,17 @@ const Management = (props) => {
   };
 
   return (
-    <div className="App">
-      <Form onChange={onChange} />
-      <Table
-        showEditHandler={showEditHandler}
-        removeHandler={listRemoveHandler}
-        list={list}
-      />
-      <EditPopup
-        oldValue={oldValue}
-        show={show}
-        editHandler={editHandler}
-        hideEditHandler={hideEditHandler}
-      />
-    </div>
+    <ListContext.Provider value={[list, setMemo]}>
+      <div className="App">
+        <Form />
+        <Table showEditHandler={showEditHandler} />
+        <EditPopup
+          show={show}
+          editIndex={editIndex}
+          hideEditHandler={hideEditHandler}
+        />
+      </div>
+    </ListContext.Provider>
   );
 };
 
