@@ -1,9 +1,5 @@
 import React from "react";
 
-const listHolder = {
-  list: [],
-};
-
-const ListContext = React.createContext(listHolder);
+const ListContext = React.createContext();
 
 export default ListContext;

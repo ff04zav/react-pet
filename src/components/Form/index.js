@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import ListContext from "../../providers/ListContext";
 
 const Form = () => {
-  const [list, setMemo] = useContext(ListContext);
+  const [list, setList] = useContext(ListContext);
   const [form, setForm] = useState({
     first: "0",
     second: "0",
+    name: "",
     operator: "mult",
   });
 
@@ -31,11 +32,14 @@ const Form = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    let value = String(calcResult());
-    setMemo([String(value), ...list]);
+    let item = {};
+    item.name = form.name;
+    item.value = String(calcResult());
+    setList([item, ...list]);
     setForm({
       first: "0",
       second: "0",
+      name: "",
       operator: "mult",
     });
   };
@@ -58,14 +62,42 @@ const Form = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <input onChange={onChange} name="first" value={form.first} />
-      <select name="operator" value={form.operator} onChange={onChange}>
-        <option value="add">+</option>
-        <option value="sub">-</option>
-        <option value="mult">*</option>
-        <option value="div">/</option>
-      </select>
-      <input onChange={onChange} name="second" value={form.second} />
+      <div className="form-group">
+        <label htmlFor="exampleInputEmail1">Name: </label>
+        <input
+          name="name"
+          className="form-control"
+          value={form.name}
+          onChange={onChange}
+          id="exampleInputEmail1"
+          placeholder="Enter name"
+        />
+      </div>
+      <div className="form-group">
+        <input
+          className="form-control"
+          onChange={onChange}
+          name="first"
+          value={form.first}
+        />
+        <select
+          name="operator"
+          className="form-control"
+          value={form.operator}
+          onChange={onChange}
+        >
+          <option value="add">+</option>
+          <option value="sub">-</option>
+          <option value="mult">*</option>
+          <option value="div">/</option>
+        </select>
+        <input
+          className="form-control"
+          onChange={onChange}
+          name="second"
+          value={form.second}
+        />
+      </div>
       <button className="btn btn-primary align-top" disabled={!isValid()}>
         Store result
       </button>

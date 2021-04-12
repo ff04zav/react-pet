@@ -1,43 +1,81 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import ListContext from "../../providers/ListContext";
-import UpButton from "../UpButton";
-import DownButton from "../DownButton";
+import UpDownButton from "../UpDownButton";
 
-const Row = ({ item, index, showEditHandler }) => {
-  const [list, setMemo] = React.useContext(ListContext);
+const Row = ({ index }) => {
+  const [list, setList] = React.useContext(ListContext);
+  let prevValue;
+
   const deleteItem = () => {
-    setMemo(list.filter((elem, i) => i !== index));
+    setList(list.filter((elem, i) => i !== index));
   };
 
-  const editItem = () => {
-    showEditHandler(index);
+  const handleName = (evt) => {
+    updateList("name", evt.target.textContent);
+  };
+
+  const updateList = (prop, value) => {
+    console.log(index);
+    setList(
+      list.map((elem, i) => {
+        if (i !== index) return elem;
+        return {
+          ...elem,
+          [prop]: value,
+        };
+      })
+    );
+  };
+
+  const handleValue = (evt) => {
+    if (!Number.isNaN(Number(evt.target.textContent))) {
+      updateList("value", evt.target.textContent);
+    } else {
+      updateList("value", prevValue);
+      evt.target.textContent = prevValue;
+      console.log({ ...evt.target });
+    }
+  };
+
+  const focusValue = (evt) => {
+    prevValue = evt.target.textContent;
   };
 
   return (
     <div className="row">
       <div className="label text-truncate">
-        <span>{item}</span>
+        <span
+          onBlur={handleName}
+          contentEditable="true"
+          suppressContentEditableWarning={true}
+        >
+          {list.find((elem, i) => i === index).name}
+        </span>
       </div>
-      <button className="btn btn-secondary align-top" onClick={editItem}>
-        <FontAwesomeIcon icon={faEdit} />
-      </button>
+      <div className="label text-truncate">
+        <span
+          onBlur={handleValue}
+          onFocus={focusValue}
+          contentEditable="true"
+          suppressContentEditableWarning={true}
+        >
+          {list.find((elem, i) => i === index).value}
+        </span>
+      </div>
       <button className="btn btn-secondary align-top" onClick={deleteItem}>
         <FontAwesomeIcon icon={faTrash} />
       </button>
-      <UpButton index={index} />
-      <DownButton index={index} />
+      <UpDownButton index={index} direction="Up" />
+      <UpDownButton index={index} direction="Down" />
     </div>
   );
 };
 
 Row.propTypes = {
-  item: PropTypes.string,
   index: PropTypes.number,
-  showEditHandler: PropTypes.func,
 };
 
 export default Row;

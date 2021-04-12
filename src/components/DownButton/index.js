@@ -5,11 +5,11 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import ListContext from "../../providers/ListContext";
 
 const DownButton = ({ index }) => {
-  const [list, setMemo] = React.useContext(ListContext);
+  const [list, setList] = React.useContext(ListContext);
   const moveDown = () => {
-    let lowerEl = list[index + 1];
-    let currentEl = list[index];
-    setMemo(
+    const lowerEl = list[index + 1];
+    const currentEl = list[index];
+    setList(
       list.map((elem, i) => {
         if (i < index || i > index + 1) return elem;
         return i === index ? lowerEl : currentEl;
