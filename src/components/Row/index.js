@@ -4,46 +4,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import ListContext from "../../providers/ListContext";
 import UpDownButton from "../UpDownButton";
+import { connect } from "react-redux";
+import actions from "../../redux/table/table.actions";
 
-const Row = ({ index }) => {
-  const [list, setList] = React.useContext(ListContext);
+const Row = ({ index, updateList, deleteItem, list }) => {
   let prevValue;
 
-  const deleteItem = () => {
-    setList(list.filter((elem, i) => i !== index));
+  const deleteButtonHandler = () => {
+    deleteItem(index);
   };
 
   const handleName = (evt) => {
-    updateList("name", evt.target.textContent);
+    updateRow("name", evt.target.textContent);
   };
 
-  const updateList = (prop, value) => {
-    console.log(index);
-    setList(
-      list.map((elem, i) => {
-        if (i !== index) return elem;
-        return {
-          ...elem,
-          [prop]: value,
-        };
-      })
-    );
+  const updateRow = (prop, value) => {
+    updateList(index, prop, value);
   };
 
   const handleValue = (evt) => {
     if (!Number.isNaN(Number(evt.target.textContent))) {
-      updateList("value", evt.target.textContent);
+      updateRow("value", evt.target.textContent);
     } else {
-      updateList("value", prevValue);
       evt.target.textContent = prevValue;
-      console.log({ ...evt.target });
     }
   };
 
-  const focusValue = (evt) => {
-    prevValue = evt.target.textContent;
-  };
-
+  const focusValue = (evt) => (prevValue = evt.target.textContent);
+  const row = list.find((elem, i) => i === index);
   return (
     <div className="row">
       <div className="label text-truncate">
@@ -52,7 +40,7 @@ const Row = ({ index }) => {
           contentEditable="true"
           suppressContentEditableWarning={true}
         >
-          {list.find((elem, i) => i === index).name}
+          {row.name}
         </span>
       </div>
       <div className="label text-truncate">
@@ -62,10 +50,13 @@ const Row = ({ index }) => {
           contentEditable="true"
           suppressContentEditableWarning={true}
         >
-          {list.find((elem, i) => i === index).value}
+          {row.value}
         </span>
       </div>
-      <button className="btn btn-secondary align-top" onClick={deleteItem}>
+      <button
+        className="btn btn-secondary align-top"
+        onClick={deleteButtonHandler}
+      >
         <FontAwesomeIcon icon={faTrash} />
       </button>
       <UpDownButton index={index} direction="Up" />
@@ -78,4 +69,16 @@ Row.propTypes = {
   index: PropTypes.number,
 };
 
-export default Row;
+const mapStateToProps = (state) => {
+  return {
+    list: state.table,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  updateList: (index, prop, value) =>
+    dispatch(actions.updateList(index, prop, value)),
+  deleteItem: (index) => dispatch(actions.deleteItem(index)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Row);

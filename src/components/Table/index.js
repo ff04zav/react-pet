@@ -1,10 +1,10 @@
 import React from "react";
 
 import Row from "../Row";
-import ListContext from "../../providers/ListContext";
+import { connect } from "react-redux";
 
-const Table = () => {
-  const [list] = React.useContext(ListContext);
+const Table = ({ list }) => {
+  console.log(list);
   return (
     <div className="pseudo-table">
       {list.map((_item, index) => (
@@ -14,6 +14,11 @@ const Table = () => {
   );
 };
 
-Table.propTypes = {};
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    list: state.table,
+  };
+};
 
-export default Table;
+export default connect(mapStateToProps)(Table);

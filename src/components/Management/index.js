@@ -1,18 +1,16 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Form from "../Form";
 import Table from "../Table";
 import ListContext from "../../providers/ListContext";
+import updateList from "../../redux/table/table.actions";
 
 const Management = () => {
-  const [list, setList] = useState([]);
-
   return (
-    <ListContext.Provider value={[list, setList]}>
-      <div className="App">
-        <Form />
-        <Table />
-      </div>
-    </ListContext.Provider>
+    <div className="App">
+      <Form />
+      <Table />
+    </div>
   );
 };
 

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import ListContext from "../../providers/ListContext";
+import { connect } from "react-redux";
+import actions from "../../redux/table/table.actions";
 
-const Form = () => {
-  const [list, setList] = useContext(ListContext);
+const Form = ({ addToList }) => {
   const [form, setForm] = useState({
     first: "0",
     second: "0",
@@ -35,7 +36,7 @@ const Form = () => {
     let item = {};
     item.name = form.name;
     item.value = String(calcResult());
-    setList([item, ...list]);
+    addToList(item);
     setForm({
       first: "0",
       second: "0",
@@ -63,13 +64,13 @@ const Form = () => {
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
-        <label htmlFor="exampleInputEmail1">Name: </label>
+        <label htmlFor="nameInput">Name: </label>
         <input
           name="name"
           className="form-control"
           value={form.name}
           onChange={onChange}
-          id="exampleInputEmail1"
+          id="nameInput"
           placeholder="Enter name"
         />
       </div>
@@ -105,4 +106,8 @@ const Form = () => {
   );
 };
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  addToList: (item) => dispatch(actions.addToList(item)),
+});
+
+export default connect(null, mapDispatchToProps)(Form);

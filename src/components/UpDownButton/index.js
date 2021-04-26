@@ -2,21 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import ListContext from "../../providers/ListContext";
+import { connect } from "react-redux";
+import actions from "../../redux/table/table.actions";
 
-const UpDownButton = ({ index, direction }) => {
-  const [list, setList] = React.useContext(ListContext);
-
+const UpDownButton = ({ index, direction, list, swipeRows }) => {
   const moveUpDown = () => {
     const siblingIndex = direction === "Up" ? index - 1 : index + 1;
-    const siblingEl = list[siblingIndex];
-    const currentEl = list[index];
-    setList(
-      list.map((elem, i) => {
-        if (i !== siblingIndex && i !== index) return elem;
-        return i === index ? siblingEl : currentEl;
-      })
-    );
+    swipeRows(siblingIndex, index);
   };
 
   if (
@@ -37,4 +29,15 @@ UpDownButton.propTypes = {
   direction: PropTypes.string,
 };
 
-export default UpDownButton;
+const mapStateToProps = (state) => {
+  return {
+    list: state.table,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  swipeRows: (siblingIndex, index) =>
+    dispatch(actions.swipeRows(siblingIndex, index)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpDownButton);
