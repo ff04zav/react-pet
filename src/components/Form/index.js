@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import ListContext from "../../providers/ListContext";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import actions from "../../redux/table/table.actions";
 

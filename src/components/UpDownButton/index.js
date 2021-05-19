@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-import actions from "../../redux/table/table.actions";
+import { swipeRows } from "../../redux/table/table.actions";
 
 const UpDownButton = ({ index, direction, list, swipeRows }) => {
   const moveUpDown = () => {
@@ -36,8 +36,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  swipeRows: (siblingIndex, index) =>
-    dispatch(actions.swipeRows(siblingIndex, index)),
+  swipeRows: (siblingIndex, index) => dispatch(swipeRows(siblingIndex, index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpDownButton);

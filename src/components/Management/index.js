@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import Form from "../Form";
 import Table from "../Table";
-import ListContext from "../../providers/ListContext";
-import updateList from "../../redux/table/table.actions";
 
 const Management = () => {
   return (

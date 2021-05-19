@@ -1,7 +1,6 @@
 const INITIAL_STATE = [];
 
 const tableReducer = (state = INITIAL_STATE, action) => {
-  console.log(state);
   switch (action.type) {
     case "UPDATE_LIST":
       return state.map((elem, i) => {

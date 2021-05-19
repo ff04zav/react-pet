@@ -2,10 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import ListContext from "../../providers/ListContext";
 import UpDownButton from "../UpDownButton";
 import { connect } from "react-redux";
-import actions from "../../redux/table/table.actions";
+import { updateList, deleteItem } from "../../redux/table/table.actions";
 
 const Row = ({ index, updateList, deleteItem, list }) => {
   let prevValue;
@@ -76,9 +75,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateList: (index, prop, value) =>
-    dispatch(actions.updateList(index, prop, value)),
-  deleteItem: (index) => dispatch(actions.deleteItem(index)),
+  updateList: (index, prop, value) => dispatch(updateList(index, prop, value)),
+  deleteItem: (index) => dispatch(deleteItem(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Row);
