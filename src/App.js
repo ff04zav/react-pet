@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Management from "./components/Management";
+import Management from "./pages/Management";
+import News from "./pages/News";
+import Home from "./pages/Home";
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -34,20 +36,14 @@ export default function App() {
           <Route path="/management">
             <Management name="Andrew" />
           </Route>
+          <Route path="/News">
+            <News />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
         </Switch>
       </div>
     </Router>
-  );
-}
-
-function Home() {
-  return (
-    <div className="Home">
-      <h2>React pet application</h2>
-      <p>Click 'Management' menu item to test functionality</p>
-    </div>
   );
 }
