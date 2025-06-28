@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Management from "./pages/Management";
 import News from "./pages/News";
@@ -32,17 +31,11 @@ export default function App() {
           </ul>
         </nav>
 
-        <Switch>
-          <Route path="/management">
-            <Management name="Andrew" />
-          </Route>
-          <Route path="/News">
-            <News />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/management" element={<Management name="Andrew" />} />
+          <Route path="/News" element={<News />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
       </div>
     </Router>
   );
